@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/appConstantes.dart';
+import 'package:tenniscourt/rootScreen.dart';
+import 'package:tenniscourt/screens/Home.dart';
 import 'package:tenniscourt/screens/authPages/registro.dart';
 
 class Login extends StatefulWidget {
@@ -147,7 +149,11 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18)
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return RootScreen();
+                      }));
+                    },
                     child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
                 ),
               ),
