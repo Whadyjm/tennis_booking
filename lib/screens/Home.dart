@@ -4,6 +4,7 @@ import 'package:tenniscourt/appConstantes.dart';
 import 'package:tenniscourt/models/canchaModel.dart';
 import 'package:tenniscourt/screens/authPages/login.dart';
 import 'package:tenniscourt/widgets/canchaCard.dart';
+import 'package:tenniscourt/widgets/titulo.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,9 +18,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     List<CanchaModel> canchas = [
-      CanchaModel(nombre: 'Epic Box', tipo: 'Tipo A', disponible: true, fecha: DateTime.now(), image: 'assets/epicBox.jpg'),
-      CanchaModel(nombre: 'Sport Box', tipo: 'Tipo C', disponible: false, fecha: DateTime.now(), image: 'assets/sportBox.jpg'),
-      CanchaModel(nombre: 'Multiple Box', tipo: 'Tipo A', disponible: true, fecha: DateTime.now(), image: 'assets/multipleBox.jpg'),
+      CanchaModel(nombre: 'Epic Box', tipo: 'Tipo A', disponible: true, fecha: '9 de julio de 2024', image: 'assets/epicBox.jpg'),
+      CanchaModel(nombre: 'Sport Box', tipo: 'Tipo C', disponible: false, fecha: '10 de julio de 2024', image: 'assets/sportBox.jpg'),
+      CanchaModel(nombre: 'Multiple Box', tipo: 'Tipo A', disponible: true, fecha: '10 de julio de 2024', image: 'assets/multipleBox.jpg'),
     ];
 
     return Scaffold(
@@ -27,7 +28,9 @@ class _HomeState extends State<Home> {
         toolbarHeight: 70,
         backgroundColor: AppConstants.green,
         automaticallyImplyLeading: false,
-        leading: Image.asset('assets/logo.png'),
+        title: Image.asset(
+            height: 50,
+            'assets/logo.png'),
         actions: [
           const CircleAvatar(
             backgroundImage: NetworkImage('https://img.freepik.com/fotos-premium/mujer-joven-raqueta-tenis-sobre-su-cara-aislada-rostro-neutral-mirada-segura-fotografia-cerca_264277-894.jpg?w=360'),
@@ -56,7 +59,7 @@ class _HomeState extends State<Home> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 20, bottom: 10),
-                  child: Text('Canchas', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
+                  child: Titulo(titulo: 'Canchas')
                 ),
               ],
             ),
@@ -73,7 +76,7 @@ class _HomeState extends State<Home> {
                         nombre: canchas[index].nombre,
                         image: canchas[index].image,
                         tipo: canchas[index].tipo,
-                        fecha: canchas[index].fecha.year.toString(),
+                        fecha: canchas[index].fecha,
                         disponible: canchas[index].disponible,);
                     }),
               ),
@@ -83,7 +86,7 @@ class _HomeState extends State<Home> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 20, bottom: 10),
-                  child: Text('Reservas programadas', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),),
+                  child: Titulo(titulo: 'Reservas programadas')
                 ),
               ],
             ),

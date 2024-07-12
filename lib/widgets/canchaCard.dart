@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/appConstantes.dart';
+import 'package:tenniscourt/screens/canchaScreen.dart';
 
 class CanchaCard extends StatelessWidget {
   const CanchaCard({super.key, required this.nombre, required this.image, required this.tipo, required this.fecha, required this.disponible});
@@ -35,7 +36,7 @@ class CanchaCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(nombre),
+                  Text(nombre, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                   Text(tipo),
                   Row(
                     children: [
@@ -60,7 +61,7 @@ class CanchaCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 5,),
                       const Icon(Icons.access_time_rounded, size: 15,),
-                      Text('7:00 AM a 4:00 PM'),
+                      const Text('7:00 AM a 4:00 PM'),
                     ],
                   )
                 ],
@@ -75,7 +76,11 @@ class CanchaCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18)
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return CanchaScreen(nombre: nombre, image: image, tipo: tipo, disponible: disponible,);
+                    }));
+                  },
                   child: const Text('Reservar', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
               ),
             ),

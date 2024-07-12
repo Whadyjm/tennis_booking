@@ -17,8 +17,6 @@ class LoginState extends State<Registro> {
   var emailTextController = new TextEditingController();
   var passwordTextController = new TextEditingController();
 
-  final formKey = GlobalKey<FormState>(); //Para hacer validación de los TextField
-
   @override
   Widget build(BuildContext context) {
 

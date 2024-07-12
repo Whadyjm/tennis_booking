@@ -4,7 +4,7 @@ class CanchaModel {
   late String image;
   late String nombre, tipo;
   late bool disponible;
-  late DateTime fecha;
+  late String fecha;
 
   CanchaModel({
     required this.image,
