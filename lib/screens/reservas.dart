@@ -131,7 +131,7 @@ class Reservas extends StatelessWidget {
                               )
                             ]
                           ),
-                          child: ReservaTile(reserva: reserva)),
+                          child: ReservaTile(reserva: reserva, index: index,)),
                     );
                   },
                 ),

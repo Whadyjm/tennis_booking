@@ -109,7 +109,7 @@ class Resumen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18),
                         ),
                         onPressed: (){
-                          reservasProvider.deleteReserva(reserva);
+                          reservasProvider.eliminarReserva(index);
                           Navigator.pop(context);
                         },
                         child: const Row(
@@ -147,7 +147,7 @@ class Resumen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18)
                         ),
                         onPressed: (){
-                          reservasProvider.deleteReserva(reserva);
+                          reservasProvider.clearReserva(reserva);
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
                             return Home();
                           }), (Route route) => false);

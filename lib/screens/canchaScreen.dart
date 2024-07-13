@@ -90,6 +90,8 @@ class _CanchaScreenState extends State<CanchaScreen> {
 
   late String comentario = '';
 
+  late int nroReservas = 0;
+
   @override
   Widget build(BuildContext context) {
 
@@ -354,6 +356,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                             ReservaModel(image: widget.image, nombre: widget.nombre, tipo: tipo, trainer: trainer, fecha: fecha, duracion: duracionInt.toString(), comentario: comentario, prob: prob),
                           );
                         }
+
                       } else {
                         return;
                       }

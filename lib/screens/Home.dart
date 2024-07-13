@@ -109,11 +109,7 @@ class _HomeState extends State<Home> {
                   final reserva = reservas[index];
                   return Column(
                     children: [
-                      GestureDetector(
-                          onTap:(){
-                            reservasProvider.removeItemReserva(index: index);
-                          },
-                          child: ReservaTile(reserva: reserva)),
+                      ReservaTile(reserva: reserva, index: index,),
                       const Divider()
                     ],
                   );

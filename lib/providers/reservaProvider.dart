@@ -10,13 +10,15 @@ class ReservaProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteReserva(ReservaModel reserva) {
+  void clearReserva(ReservaModel reserva) {
     _reservas.clear();
     notifyListeners();
   }
 
-  void removeItemReserva({required int index}) {
-    _reservas.remove(index);
-    notifyListeners();
+  void eliminarReserva(int indice) {
+    if (indice >= 0 && indice < _reservas.length) {
+      _reservas.removeAt(indice);
+      notifyListeners();
+    }
   }
 }

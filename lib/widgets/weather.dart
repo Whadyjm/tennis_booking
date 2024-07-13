@@ -11,9 +11,9 @@ class Weather extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.cloudy_snowing, color: Colors.blue,),
-        SizedBox(width: 5,),
-        Text(prob, style: TextStyle(fontSize: 15, color: Colors.grey),),
+        const Icon(Icons.cloudy_snowing, color: Colors.blue,),
+        const SizedBox(width: 5,),
+        Text(prob, style: const TextStyle(fontSize: 15, color: Colors.grey),),
       ],
     );
   }
