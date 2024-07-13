@@ -3,6 +3,7 @@ import 'package:tenniscourt/models/reservaModel.dart';
 
 class ReservaProvider extends ChangeNotifier {
   List<ReservaModel> _reservas = [];
+  List<ReservaModel> get reservas => _reservas;
 
   void addReserva(ReservaModel reserva) {
     _reservas.add(reserva);
@@ -14,5 +15,8 @@ class ReservaProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<ReservaModel> get reservas => _reservas;
+  void removeItemReserva({required int index}) {
+    _reservas.remove(index);
+    notifyListeners();
+  }
 }

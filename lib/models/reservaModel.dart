@@ -6,6 +6,7 @@ class ReservaModel {
   final String fecha;
   final String duracion;
   final String comentario;
+  final String prob;
 
   ReservaModel({
     required this.image,
@@ -14,6 +15,7 @@ class ReservaModel {
     required this.trainer,
     required this.fecha,
     required this.duracion,
-    required this.comentario
+    required this.comentario,
+    required this.prob
 });
 }

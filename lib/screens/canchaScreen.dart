@@ -9,14 +9,16 @@ import 'package:tenniscourt/models/reservaModel.dart';
 import 'package:tenniscourt/providers/reservaProvider.dart';
 import 'package:tenniscourt/screens/resumen.dart';
 import 'package:tenniscourt/widgets/titulo.dart';
+import 'package:tenniscourt/widgets/weather.dart';
 
 class CanchaScreen extends StatefulWidget {
-  CanchaScreen({super.key, required this.image, required this.nombre, required this.tipo, required this.disponible,});
+  CanchaScreen({super.key, required this.image, required this.nombre, required this.tipo, required this.disponible, required this.prob,});
 
   final String image;
   final String nombre;
   final String tipo;
   final bool disponible;
+  final String prob;
 
   @override
   State<CanchaScreen> createState() => _CanchaScreenState();
@@ -207,17 +209,11 @@ class _CanchaScreenState extends State<CanchaScreen> {
                         ),
                       ],
                     ),
-                    const Column(
+                    Column(
                       children: [
-                        Text('\$25', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue),),
-                        Text('Por hora', style: TextStyle(fontSize: 15, color: Colors.grey),),
-                        Row(
-                          children: [
-                            Icon(Icons.cloudy_snowing, color: Colors.blue,),
-                            const SizedBox(width: 10,),
-                            Text('30%', style: TextStyle(fontSize: 15, color: Colors.grey),),
-                          ],
-                        )
+                        const Text('\$25', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue),),
+                        const Text('Por hora', style: TextStyle(fontSize: 15, color: Colors.grey),),
+                        Weather(prob: widget.prob)
                       ],
                     )
                   ],
@@ -337,23 +333,29 @@ class _CanchaScreenState extends State<CanchaScreen> {
                 child: MaterialButton(
                     height: 50,
                     minWidth: 350,
-                    color: AppConstants.green,
+                    color: _dropDownValue == null ? Colors.green.shade100:AppConstants.green,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18)
                     ),
                     onPressed: (){
-                      final tipo = widget.tipo;
-                      final trainer = _dropDownValue;
-                      final fecha = DateFormat('dd/MM/yy').format(selectedDate!);
 
-                      final horas = Duration(hours: selectedTime2!.hour - selectedTime1!.hour);
-                      final duracion = horas.toString();
-                      final int duracionInt = horas.inHours;
+                      if (_dropDownValue != null) {
+                        final String prob = widget.prob;
+                        final tipo = widget.tipo;
+                        final trainer = _dropDownValue;
+                        final fecha = DateFormat('dd/MM/yy').format(selectedDate!);
 
-                      if (trainer!=null && tipo.isNotEmpty) {
-                        reservaProvider.addReserva(
-                          ReservaModel(image: widget.image, nombre: widget.nombre, tipo: tipo, trainer: trainer, fecha: fecha, duracion: duracionInt.toString(), comentario: comentario),
-                        );
+                        final horas = Duration(hours: selectedTime2!.hour - selectedTime1!.hour);
+                        final duracion = horas.toString();
+                        final int duracionInt = horas.inHours;
+
+                        if (trainer!=null && tipo.isNotEmpty) {
+                          reservaProvider.addReserva(
+                            ReservaModel(image: widget.image, nombre: widget.nombre, tipo: tipo, trainer: trainer, fecha: fecha, duracion: duracionInt.toString(), comentario: comentario, prob: prob),
+                          );
+                        }
+                      } else {
+                        return;
                       }
 
                       Navigator.push(context, MaterialPageRoute(builder: (context){

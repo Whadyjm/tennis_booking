@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/appConstantes.dart';
 import 'package:tenniscourt/screens/Home.dart';
+import 'package:tenniscourt/screens/reservas.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -20,6 +21,7 @@ class _RootScreenState extends State<RootScreen> {
     super.initState();
     screens = const [
       Home(),
+      Reservas()
     ];
     controller = PageController(initialPage: currentScreen);
   }

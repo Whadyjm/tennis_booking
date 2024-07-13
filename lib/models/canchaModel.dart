@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class CanchaModel {
   late String image;
-  late String nombre, tipo;
+  late String nombre, tipo, prob;
   late bool disponible;
   late String fecha;
 
@@ -10,6 +10,7 @@ class CanchaModel {
     required this.image,
     required this.nombre,
     required this.tipo,
+    required this.prob,
     required this.disponible,
     required this.fecha,
 });

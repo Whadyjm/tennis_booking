@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/appConstantes.dart';
 import 'package:tenniscourt/screens/canchaScreen.dart';
+import 'package:tenniscourt/widgets/weather.dart';
 
 class CanchaCard extends StatelessWidget {
-  const CanchaCard({super.key, required this.nombre, required this.image, required this.tipo, required this.fecha, required this.disponible});
+  const CanchaCard({super.key, required this.nombre, required this.image, required this.tipo, required this.fecha, required this.disponible, required this.prob});
 
   final String image;
   final String nombre;
   final String tipo;
   final String fecha;
   final bool disponible;
-
+  final String prob;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,13 @@ class CanchaCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(nombre, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(nombre, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                      Weather(prob: prob,)
+                    ],
+                  ),
                   Text(tipo),
                   Row(
                     children: [
@@ -78,7 +85,7 @@ class CanchaCard extends StatelessWidget {
                   ),
                   onPressed: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return CanchaScreen(nombre: nombre, image: image, tipo: tipo, disponible: disponible,);
+                      return CanchaScreen(nombre: nombre, image: image, tipo: tipo, disponible: disponible, prob: prob,);
                     }));
                   },
                   child: const Text('Reservar', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)

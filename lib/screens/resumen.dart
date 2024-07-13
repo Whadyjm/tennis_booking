@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tenniscourt/appConstantes.dart';
 import 'package:tenniscourt/providers/reservaProvider.dart';
+import 'package:tenniscourt/rootScreen.dart';
 import 'package:tenniscourt/screens/Home.dart';
 import 'package:tenniscourt/widgets/titulo.dart';
 
@@ -15,11 +16,18 @@ class Resumen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: ListView.builder(
+          reverse: true,
           itemCount: reservas.length,
           itemBuilder: (context, index) {
             final reserva = reservas[index];
             return ListTile(
-              title: const Titulo(titulo: 'Resumen'),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(fit: BoxFit.contain, reserva.image),
+                  const Titulo(titulo: 'Resumen'),
+                ],
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -123,7 +131,7 @@ class Resumen extends StatelessWidget {
                       ),
                       onPressed: (){
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
-                          return const Home();
+                          return const RootScreen();
                         }), (Route route) => false);
                       },
                       child: const Text('Pagar', style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),)
