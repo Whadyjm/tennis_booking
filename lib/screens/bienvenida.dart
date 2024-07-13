@@ -16,45 +16,47 @@ class MyHomePage extends StatelessWidget {
               opacity: const AlwaysStoppedAnimation(.40),
               'assets/player.png'),
           Center(
-            child: Column(
-              children: [
-                const SizedBox(height: 200,),
-                Image.asset(
-                    height: 150,
-                    'assets/logo.png'),
-                const SizedBox(height: 250,),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: MaterialButton(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 200,),
+                  Image.asset(
+                      height: 150,
+                      'assets/logo.png'),
+                  const SizedBox(height: 200,),
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: MaterialButton(
+                        height: 60,
+                        minWidth: 350,
+                        color: AppConstants.green,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18)
+                        ),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return Login();
+                          }));
+                        },
+                        child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
+                    ),
+                  ),
+                  MaterialButton(
                       height: 60,
                       minWidth: 350,
-                      color: AppConstants.green,
+                      color: Colors.white24,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18)
                       ),
                       onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return Login();
+                          return const Registro();
                         }));
                       },
-                      child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
+                      child: const Text('Registrarme', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
                   ),
-                ),
-                MaterialButton(
-                    height: 60,
-                    minWidth: 350,
-                    color: Colors.white24,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18)
-                    ),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return const Registro();
-                      }));
-                    },
-                    child: const Text('Registrarme', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
-                ),
-              ],
+                ],
+              ),
             ),
           )
         ],

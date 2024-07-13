@@ -1,7 +1,13 @@
+import 'dart:ffi';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:tenniscourt/appConstantes.dart';
+import 'package:tenniscourt/models/reservaModel.dart';
+import 'package:tenniscourt/providers/reservaProvider.dart';
+import 'package:tenniscourt/screens/resumen.dart';
 import 'package:tenniscourt/widgets/titulo.dart';
 
 class CanchaScreen extends StatefulWidget {
@@ -18,7 +24,6 @@ class CanchaScreen extends StatefulWidget {
 
 class _CanchaScreenState extends State<CanchaScreen> {
 
-  late TextEditingController descriptionController = TextEditingController();
 
   List<String> entrenadorList = [
     'Mark Gonzalez',
@@ -40,23 +45,54 @@ class _CanchaScreenState extends State<CanchaScreen> {
   String? _dropDownValue;
 
   Future<void> showDate () async {
-    _selectedDate = await showDatePicker(
+    selectedDate = await showDatePicker(
         keyboardType: TextInputType.datetime,
         context: context,
-        firstDate: DateTime(1950),
-        lastDate: DateTime.now()
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2050)
     );
-    if (_selectedDate != null) {
+    if (selectedDate != null) {
       setState(() {});
     } else {
-      _selectedDate = DateTime.now();
+      selectedDate = DateTime.now();
     }
   }
 
-  late DateTime? _selectedDate = DateTime.now();
+  Future<void> pickHour1 () async {
+    selectedTime1 = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now()
+    );
+    if (selectedTime1 != null) {
+      setState(() {});
+    } else {
+      selectedTime1 = TimeOfDay.now();
+    }
+  }
+
+  Future<void> pickHour2 () async {
+    selectedTime2 = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now()
+    );
+    if (selectedTime2 != null) {
+      setState(() {});
+    } else {
+      selectedTime2 = TimeOfDay.now();
+    }
+  }
+
+  late DateTime? selectedDate = DateTime.now();
+  late TimeOfDay? selectedTime1 = TimeOfDay.now();
+  late TimeOfDay? selectedTime2 = TimeOfDay.now();
+
+  late String comentario = '';
 
   @override
   Widget build(BuildContext context) {
+
+    final reservaProvider = Provider.of<ReservaProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -209,7 +245,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                           children: [
                             const Text('Fecha'),
                             const SizedBox(width: 5,),
-                            Text(DateFormat('dd/MM/yy').format(_selectedDate!), style: const TextStyle(fontSize: 18, color: Colors.grey),)
+                            Text(DateFormat('dd/MM/yy').format(selectedDate!), style: const TextStyle(fontSize: 18, color: Colors.grey),)
                           ],
                         )
                     ),
@@ -222,7 +258,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      onTap: showDate,
+                      onTap: pickHour1,
                       child: Container(
                           padding: const EdgeInsets.all(12),
                           height: 70,
@@ -236,7 +272,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                             children: [
                               const Text('Desde'),
                               const SizedBox(width: 5,),
-                              Text(DateFormat('dd/MM/yy').format(_selectedDate!), style: const TextStyle(fontSize: 18, color: Colors.grey),)
+                              Text(selectedTime1!.format(context), style: const TextStyle(fontSize: 18, color: Colors.grey),)
                             ],
                           )
                       ),
@@ -245,7 +281,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
-                      onTap: showDate,
+                      onTap: pickHour2,
                       child: Container(
                           padding: const EdgeInsets.all(12),
                           height: 70,
@@ -259,7 +295,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                             children: [
                               const Text('Hasta'),
                               const SizedBox(width: 5,),
-                              Text(DateFormat('dd/MM/yy').format(_selectedDate!), style: const TextStyle(fontSize: 18, color: Colors.grey),)
+                              Text(selectedTime2!.format(context), style: const TextStyle(fontSize: 18, color: Colors.grey),)
                             ],
                           )
                       ),
@@ -276,10 +312,12 @@ class _CanchaScreenState extends State<CanchaScreen> {
                   width: 350,
                   child: TextFormField(
                       textCapitalization: TextCapitalization.sentences,
-                      controller: descriptionController,
                       maxLines: 5,
                       obscureText: false,
                       keyboardType: TextInputType.multiline,
+                      onChanged: (value){
+                        comentario = value;
+                      },
                       decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(20),
                           hintStyle: const TextStyle(
@@ -291,13 +329,7 @@ class _CanchaScreenState extends State<CanchaScreen> {
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(8))),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Ingresa la descripción de tu artículo.";
-                        } else {
-                          null;
-                        }
-                      }),
+                      ),
                 ),
               ),
               Padding(
@@ -309,7 +341,25 @@ class _CanchaScreenState extends State<CanchaScreen> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18)
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      final tipo = widget.tipo;
+                      final trainer = _dropDownValue;
+                      final fecha = DateFormat('dd/MM/yy').format(selectedDate!);
+
+                      final horas = Duration(hours: selectedTime2!.hour - selectedTime1!.hour);
+                      final duracion = horas.toString();
+                      final int duracionInt = horas.inHours;
+
+                      if (trainer!=null && tipo.isNotEmpty) {
+                        reservaProvider.addReserva(
+                          ReservaModel(image: widget.image, nombre: widget.nombre, tipo: tipo, trainer: trainer, fecha: fecha, duracion: duracionInt.toString(), comentario: comentario),
+                        );
+                      }
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Resumen();
+                      }));
+                    },
                     child: const Text('Reservar', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
                 ),
               ),

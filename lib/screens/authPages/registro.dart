@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/appConstantes.dart';
+import 'package:tenniscourt/screens/authPages/login.dart';
 
 class Registro extends StatefulWidget {
   const Registro({super.key});
@@ -231,7 +232,11 @@ class LoginState extends State<Registro> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text('Ya tengo cuenta', style: TextStyle(fontSize: 15, color: Colors.white)),
-                    TextButton(onPressed: (){}, child: const Text('Iniciar sesión', style: TextStyle(fontSize: 17, color: AppConstants.green),))
+                    TextButton(onPressed: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                        return Login();
+                      }));
+                    }, child: const Text('Iniciar sesión', style: TextStyle(fontSize: 17, color: AppConstants.green),))
                   ],
                 )
               ],
