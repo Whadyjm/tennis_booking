@@ -25,9 +25,9 @@ class _HomeState extends State<Home> {
     final reservas = reservasProvider.reservas;
 
     List<CanchaModel> canchas = [
-      CanchaModel(nombre: 'Epic Box', tipo: 'Tipo A', disponible: true, fecha: '9 de julio de 2024', image: 'assets/epicBox.jpg', prob: '30%'),
-      CanchaModel(nombre: 'Sport Box', tipo: 'Tipo C', disponible: false, fecha: '10 de julio de 2024', image: 'assets/sportBox.jpg', prob: '60%'),
-      CanchaModel(nombre: 'Multiple Box', tipo: 'Tipo A', disponible: true, fecha: '10 de julio de 2024', image: 'assets/multipleBox.jpg', prob: '30%'),
+      CanchaModel(nombre: 'Epic Box', tipo: 'Tipo A', disponible: true, fecha: DateTime.now(), image: 'assets/epicBox.jpg', prob: '30%'),
+      CanchaModel(nombre: 'Sport Box', tipo: 'Tipo C', disponible: false, fecha: DateTime.now(), image: 'assets/sportBox.jpg', prob: '60%'),
+      CanchaModel(nombre: 'Multiple Box', tipo: 'Tipo A', disponible: true, fecha: DateTime.now(), image: 'assets/multipleBox.jpg', prob: '30%'),
     ];
 
     return Scaffold(

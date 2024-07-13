@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tenniscourt/appConstantes.dart';
 import 'package:tenniscourt/screens/canchaScreen.dart';
+import 'package:tenniscourt/screens/weatherScreen.dart';
 import 'package:tenniscourt/widgets/weather.dart';
 
 class CanchaCard extends StatelessWidget {
@@ -10,7 +12,7 @@ class CanchaCard extends StatelessWidget {
   final String image;
   final String nombre;
   final String tipo;
-  final String fecha;
+  final DateTime fecha;
   final bool disponible;
   final String prob;
 
@@ -41,7 +43,7 @@ class CanchaCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(nombre, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                      Weather(prob: prob,)
+                      Weather(prob: prob)
                     ],
                   ),
                   Text(tipo),
@@ -50,7 +52,7 @@ class CanchaCard extends StatelessWidget {
                       const Icon(Icons.calendar_today_rounded, size: 15,),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(fecha),
+                        child: Text(DateFormat('dd/MM/yyyy').format(DateTime.now())),
                       ),
                     ],
                   ),
