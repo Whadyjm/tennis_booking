@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
+      backgroundColor: AppConstants.darkBlue,
       body: Stack(
         children: [
           Image.asset(
@@ -21,8 +21,8 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 200,),
                   Image.asset(
-                      height: 150,
-                      'assets/logo.png'),
+                      height: 400,
+                      'assets/agendado_logo.png'),
                   const SizedBox(height: 200,),
                   Padding(
                     padding: const EdgeInsets.all(18.0),
@@ -35,10 +35,10 @@ class MyHomePage extends StatelessWidget {
                         ),
                         onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context){
-                            return Login();
+                            return const Login();
                           }));
                         },
-                        child: const Text('Iniciar sesión', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
+                        child: const Text('Iniciar sesión', style: TextStyle(color: AppConstants.darkBlue, fontSize: 20, fontWeight: FontWeight.bold),)
                     ),
                   ),
                   MaterialButton(

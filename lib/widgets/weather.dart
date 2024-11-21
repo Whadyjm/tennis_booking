@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tenniscourt/screens/weatherScreen.dart';
 import 'package:weather/weather.dart';
@@ -22,13 +21,16 @@ class _WeatherState extends State<Weather> {
       children: [
         const Icon(Icons.cloudy_snowing, color: Colors.blue,),
         const SizedBox(width: 5,),
-        GestureDetector(
-            onTap:(){
-              Navigator.push(context, MaterialPageRoute(builder: (context){
-                return WeatherScreen();
-              }));
-            },
-            child: const Text('Ver clima', style: TextStyle(fontSize: 15, color: Colors.grey),)),
+        MaterialButton(
+          onPressed: () {  },
+          child: GestureDetector(
+              onTap:(){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return const WeatherScreen();
+                }));
+              },
+              child: const Text('Ver clima', style: TextStyle(fontSize: 15, color: Colors.grey),)),
+        ),
         //Text(widget.prob, style: const TextStyle(fontSize: 15, color: Colors.grey),),
       ],
     );

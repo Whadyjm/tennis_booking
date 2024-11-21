@@ -90,7 +90,7 @@ class CanchaCard extends StatelessWidget {
                       return CanchaScreen(nombre: nombre, image: image, tipo: tipo, disponible: disponible, prob: prob,);
                     }));
                   },
-                  child: const Text('Reservar', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),)
+                  child: const Text('Reservar', style: TextStyle(color: AppConstants.darkBlue, fontSize: 20, fontWeight: FontWeight.bold),)
               ),
             ),
           ],

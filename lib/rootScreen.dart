@@ -36,7 +36,7 @@ class _RootScreenState extends State<RootScreen> {
       ),
       bottomNavigationBar: NavigationBar(
         surfaceTintColor: Colors.grey,
-        indicatorColor: Colors.green,
+        indicatorColor: AppConstants.darkBlue,
         backgroundColor: Colors.white,
         height: 70,
         selectedIndex: currentScreen,

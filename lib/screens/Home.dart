@@ -24,6 +24,8 @@ class _HomeState extends State<Home> {
     final reservasProvider = Provider.of<ReservaProvider>(context);
     final reservas = reservasProvider.reservas;
 
+    ScrollController scrollController = ScrollController();
+
     List<CanchaModel> canchas = [
       CanchaModel(nombre: 'Epic Box', tipo: 'Tipo A', disponible: true, fecha: DateTime.now(), image: 'assets/epicBox.jpg', prob: '30%'),
       CanchaModel(nombre: 'Sport Box', tipo: 'Tipo C', disponible: false, fecha: DateTime.now(), image: 'assets/sportBox.jpg', prob: '60%'),
@@ -33,21 +35,22 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: AppConstants.green,
+        backgroundColor: AppConstants.darkBlue,
         automaticallyImplyLeading: false,
         title: Image.asset(
             height: 50,
-            'assets/logo.png'),
+            'assets/agendado_logo.png'),
         actions: [
           const CircleAvatar(
             backgroundImage: NetworkImage('https://img.freepik.com/fotos-premium/mujer-joven-raqueta-tenis-sobre-su-cara-aislada-rostro-neutral-mirada-segura-fotografia-cerca_264277-894.jpg?w=360'),
           ),
+          const SizedBox(width: 10,),
           IconButton(onPressed: (){}, icon: const Icon(Icons.notifications_none_rounded, size: 30, color: Colors.white,)),
           IconButton(onPressed: (){
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context){
               return const Login();
             }), (Route route) => false);
-          }, icon: const Icon(Icons.menu_rounded, size: 30, color: Colors.white,)),
+          }, icon: const Icon(Icons.logout_rounded, size: 30, color: Colors.white,)),
         ],
       ),
       body: SingleChildScrollView(
@@ -72,24 +75,38 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: SizedBox(
-                height: 430,
-                width: double.maxFinite,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: canchas.length,
-                    itemBuilder: (context, index){
-                      return CanchaCard(
-                        nombre: canchas[index].nombre,
-                        image: canchas[index].image,
-                        tipo: canchas[index].tipo,
-                        fecha: canchas[index].fecha,
-                        disponible: canchas[index].disponible,
-                        prob: canchas[index].prob,);
-                    }),
-              ),
+            Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: SizedBox(
+                    height: 430,
+                    width: double.maxFinite,
+                    child: ListView.builder(
+                        controller: scrollController,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: canchas.length,
+                        itemBuilder: (context, index){
+                          return CanchaCard(
+                            nombre: canchas[index].nombre,
+                            image: canchas[index].image,
+                            tipo: canchas[index].tipo,
+                            fecha: canchas[index].fecha,
+                            disponible: canchas[index].disponible,
+                            prob: canchas[index].prob,);
+                        }),
+                  ),
+                ),
+                // Positioned(
+                //   right: 0,
+                //   top: 100,
+                //   child: IconButton(
+                //       onPressed: (){
+                //         scrollController.animateTo(5, duration: const Duration(milliseconds: 100), curve: Curves.ease);
+                //       },
+                //   icon: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 35,),),
+                // )
+              ],
             ),
             const Divider(thickness: 0.3,),
             const Row(
